@@ -40,7 +40,7 @@ public class TeamMatchFilterTest {
 	public void noSharedMatches() {
 		List<MatchReference> matchReferences = createMatchReferences(1, 3);
 
-		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(team, matchReferences);
+		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(matchReferences);
 		assertTrue(sharedMatches.isEmpty());
 	}
 
@@ -52,7 +52,7 @@ public class TeamMatchFilterTest {
 		matchReferences.addAll(createMatchReferences(2, 5));
 		matchReferences.addAll(createMatchReferences(3, 4));
 
-		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(team, matchReferences);
+		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(matchReferences);
 		assertEquals(1, sharedMatches.size());
 		int actualMatchId = sharedMatches.get(0)
 		                             .getId()

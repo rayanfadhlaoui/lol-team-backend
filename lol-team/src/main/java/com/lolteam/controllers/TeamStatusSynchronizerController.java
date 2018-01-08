@@ -1,16 +1,18 @@
 package com.lolteam.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lolteam.entities.MatchEntity;
+import com.lolteam.model.filter.TeamMatchFilter;
 import com.lolteam.riot.api.RiotApiBuilder;
 
 import net.rithms.riot.api.RiotApi;
@@ -32,60 +34,50 @@ public class TeamStatusSynchronizerController {
 		this.api = RiotApiBuilder.get();
 	}
 
+
+	//TODO JAVADOC -> return emptyList if a error occurs 
 	@RequestMapping(value = "/getTeamSummoners", method = RequestMethod.GET)
 	public List<Summoner> getTeamSummoners() {
-		SummonerNameConsumer summonerNameConsumer = new SummonerNameConsumer();
-		summonerNames.forEach(summonerNameConsumer);
-		return summonerNameConsumer.getSummoners();
+		Stream<Optional<Summoner>> summonerStream = summonerNames.stream()
+		.map(this::getSummonerByName);
+		if(summonerStream.allMatch(Optional::isPresent)) {
+			return summonerStream.map(Optional::get)
+			.collect(Collectors.toList());
+		}
+		
+		return Collections.emptyList();
 	}
 
+	private Optional<Summoner> getSummonerByName(String summonerName) {
+		try {
+			return Optional.of(api.getSummonerByName(Platform.EUW, summonerName));
+		} catch (RiotApiException e) {
+			return Optional.empty();
+		}
+	}
 	
-	//TODO simple test
-	@RequestMapping(value = "/getAllMatches", method = RequestMethod.GET)
-	public Map<Summoner, List<MatchReference>> getAllMatches() {
+	@RequestMapping(value = "/importRecentMatches", method = RequestMethod.GET)
+	public List<MatchEntity> findRecentTeamMatches() {
+		TeamMatchFilter teamMatchFilter = new TeamMatchFilter();
 		List<Summoner> summoners = getTeamSummoners();
-		Map<Summoner, List<MatchReference>> matchReferenceBySummoner = new HashMap<>();
-		summoners.forEach(summoner -> {
-			MatchList matchList;
-			try {
-				matchList = api.getMatchListByAccountId(Platform.EUW, summoner.getAccountId());
-				matchList.getMatches()
-				         .forEach(matchReference -> {
-					         matchReferenceBySummoner.putIfAbsent(summoner, new ArrayList<>());
-					         matchReferenceBySummoner.compute(summoner, (key, matchReferences) -> {
-						         matchReferences.add(matchReference);
-						         return matchReferences;
-					         });
-				         });
-			} catch (RiotApiException e) {
-			}
-		});
+		List<MatchReference> matchReferenceList = summoners.stream()
+		.map(this::findMatchReferenceListByAccountId)
+		.flatMap(List::stream)
+		.collect(Collectors.toList());
+		
+		return teamMatchFilter.groupForTeam(matchReferenceList);
+		
+	}
 
-		return matchReferenceBySummoner;
+
+	private List<MatchReference> findMatchReferenceListByAccountId(Summoner summoner) {
+		try {
+			MatchList matchListByAccountId = api.getMatchListByAccountId(Platform.EUW, summoner.getAccountId());
+			return matchListByAccountId.getMatches();
+		} catch (RiotApiException e) {
+			return null;
+			//TODO HANDLE ERROR
+		}
 	}
 	
-	class SummonerNameConsumer implements Consumer<String> {
-
-		private final List<Summoner> summoners;
-
-		public SummonerNameConsumer() {
-			summoners = new ArrayList<>();
-		}
-
-		@Override
-		public void accept(String summonerName) {
-			Summoner summoner;
-			try {
-				summoner = api.getSummonerByName(Platform.EUW, summonerName);
-			} catch (RiotApiException e) {
-				summoner = new Summoner();
-			}
-			summoners.add(summoner);
-		}
-
-		public List<Summoner> getSummoners() {
-			return summoners;
-		}
-	}
-
 }
