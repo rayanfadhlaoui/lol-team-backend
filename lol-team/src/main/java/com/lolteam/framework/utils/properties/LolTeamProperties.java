@@ -2,17 +2,24 @@ package com.lolteam.framework.utils.properties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class LolTeamProperties {
 
-	private static final String PROPERTY_FILE_PATH = "applicationProperties/lolTeam.properties";
+	@Autowired
+	static ServletContext context;
 	private static Properties appProps;
 
 	static {
 		appProps = new Properties();
 		try {
-			appProps.load(new FileInputStream(PROPERTY_FILE_PATH));
+			URL resource = LolTeamProperties.class.getResource("lolTeam.properties");
+			appProps.load(new FileInputStream(resource.getPath()));
 		} catch (IOException e) {
 			// TODO LOGGER
 		}
