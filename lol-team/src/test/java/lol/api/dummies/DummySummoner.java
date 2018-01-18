@@ -18,4 +18,9 @@ public class DummySummoner extends Summoner {
 	public long getId() {
 		return mockId;
 	}
+	
+	@Override
+	public long getAccountId() {
+		return mockId;
+	}
 }

@@ -11,11 +11,11 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import com.lolteam.entities.MatchEntity;
-import com.lolteam.model.pojo.Team;
+//import com.lolteam.model.pojo.Team;
 
 import lol.api.factory.LolApiFactory;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
-import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
+//import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -25,13 +25,13 @@ public class TeamMatchFilterTest {
 	private LolApiFactory factory;
 
 	/** This team contains five summoners with only ids going from 1 to 5 */
-	private Team team;
+//	private Team team;
 
 	@BeforeAll
 	public void setUp() {
 		teamMatchFilter = new TeamMatchFilter();
 		factory = new LolApiFactory();
-		team = createTeam();
+//		team = createTeam();
 	}
 
 	/** Assert the list of shared matches is empty if none in common */
@@ -66,12 +66,12 @@ public class TeamMatchFilterTest {
 		                .collect(Collectors.toList());
 	}
 
-	private Team createTeam() {
-		List<Summoner> summoners = IntStream.range(1, 6)
-		                                    .mapToObj(factory::createSummoner)
-		                                    .collect(Collectors.toList());
-		Team team = new Team(summoners);
-		return team;
-	}
+//	private Team createTeam() {
+//		List<Summoner> summoners = IntStream.range(1, 6)
+//		                                    .mapToObj(factory::createSummoner)
+//		                                    .collect(Collectors.toList());
+//		Team team = new Team(summoners);
+//		return team;
+//	}
 
 }
