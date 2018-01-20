@@ -5,14 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class LolTeamProperties {
 
-	@Autowired
-	static ServletContext context;
 	private static Properties appProps;
 
 	static {

@@ -13,8 +13,13 @@ import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 
 public class LolApiFactory {
 	
+	@Deprecated
 	public Summoner createSummoner(long id) {
-		return new DummySummoner(id);
+		return createSummoner(id, "No Name Provided");
+	}
+	
+	public Summoner createSummoner(Long id, String summonerName) {
+		return new DummySummoner(id, summonerName);
 	}
 	
 	public MatchReference createMatchReference(Integer gameId) {
@@ -27,6 +32,8 @@ public class LolApiFactory {
 				.collect(Collectors.toList());
 		return new DummyMatchList(matchReferences);
 	}
+
+
 
 	
 }

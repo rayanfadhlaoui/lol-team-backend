@@ -4,35 +4,26 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.lolteam.entities.MatchEntity;
-import com.lolteam.framework.factory.entities.MatchEntityFactory;
-
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 
 public class TeamMatchFilter {
 	
-	private static MatchEntityFactory matchEntityFactory;
-
-	static {
-		matchEntityFactory = new MatchEntityFactory();
-	}
-
 	/**
 	 * Group a list of matches by team.</BR>
 	 * Only keep the ones played by the hole team.
 	 * @param matchRefenrences
 	 *            A list composed by all games played for each summoner.
 	 * 
-	 * @return List of matches played by all five summoners
+	 * @return List of matches ids played by all summoners
 	 */
-	public List<MatchEntity> groupForTeam(List<MatchReference> matchRefenrences) {
-		Predicate<MatchReference> atLeastFivePredicate = new HasAtLeastFiveMatchRefPredicate();
+	public List<Integer> groupForTeam(List<MatchReference> matchRefenrences, int nbSummoners) {
+		Predicate<Integer> countPredicate = new CountPredicate(nbSummoners);
 		
 		return matchRefenrences
-				.stream()      
-				.sorted((m1, m2) -> Long.compare(m1.getGameId(), m2.getGameId()))
-				.filter(atLeastFivePredicate)
-				.map(matchEntityFactory::createMatch)
+				.stream()
+				.map(matchRef -> Long.valueOf(matchRef.getGameId()).intValue())
+				.sorted()
+				.filter(countPredicate)
 				.collect(Collectors.toList());
 	}
 	

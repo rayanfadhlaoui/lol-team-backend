@@ -10,12 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import com.lolteam.entities.MatchEntity;
-//import com.lolteam.model.pojo.Team;
-
 import lol.api.factory.LolApiFactory;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
-//import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -24,14 +20,10 @@ public class TeamMatchFilterTest {
 	private TeamMatchFilter teamMatchFilter;
 	private LolApiFactory factory;
 
-	/** This team contains five summoners with only ids going from 1 to 5 */
-//	private Team team;
-
 	@BeforeAll
 	public void setUp() {
 		teamMatchFilter = new TeamMatchFilter();
 		factory = new LolApiFactory();
-//		team = createTeam();
 	}
 
 	/** Assert the list of shared matches is empty if none in common */
@@ -40,7 +32,8 @@ public class TeamMatchFilterTest {
 	public void noSharedMatches() {
 		List<MatchReference> matchReferences = createMatchReferences(1, 3);
 
-		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(matchReferences);
+
+		List<Integer> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
 		assertTrue(sharedMatches.isEmpty());
 	}
 
@@ -52,11 +45,9 @@ public class TeamMatchFilterTest {
 		matchReferences.addAll(createMatchReferences(2, 5));
 		matchReferences.addAll(createMatchReferences(3, 4));
 
-		List<MatchEntity> sharedMatches = teamMatchFilter.groupForTeam(matchReferences);
+		List<Integer> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
 		assertEquals(1, sharedMatches.size());
-		int actualMatchId = sharedMatches.get(0)
-		                             .getId()
-		                             .intValue();
+		int actualMatchId = sharedMatches.get(0).intValue();
 		assertEquals(2, actualMatchId);
 	}
 
@@ -65,13 +56,5 @@ public class TeamMatchFilterTest {
 		                .mapToObj(it -> factory.createMatchReference(gameId))
 		                .collect(Collectors.toList());
 	}
-
-//	private Team createTeam() {
-//		List<Summoner> summoners = IntStream.range(1, 6)
-//		                                    .mapToObj(factory::createSummoner)
-//		                                    .collect(Collectors.toList());
-//		Team team = new Team(summoners);
-//		return team;
-//	}
 
 }
