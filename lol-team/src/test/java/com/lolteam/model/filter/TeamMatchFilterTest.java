@@ -33,10 +33,10 @@ public class TeamMatchFilterTest {
 		List<MatchReference> matchReferences = createMatchReferences(1, 3);
 
 
-		List<Integer> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
+		List<Long> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
 		assertTrue(sharedMatches.isEmpty());
 	}
-
+	
 	/** Assert the list of shared matches contains one element and test its value */
 	@Test
 	@DisplayName("Test teamMatchFilter returns one element")
@@ -45,7 +45,7 @@ public class TeamMatchFilterTest {
 		matchReferences.addAll(createMatchReferences(2, 5));
 		matchReferences.addAll(createMatchReferences(3, 4));
 
-		List<Integer> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
+		List<Long> sharedMatches = teamMatchFilter.groupForTeam(matchReferences, 5);
 		assertEquals(1, sharedMatches.size());
 		int actualMatchId = sharedMatches.get(0).intValue();
 		assertEquals(2, actualMatchId);

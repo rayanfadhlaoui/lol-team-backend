@@ -16,12 +16,12 @@ public class TeamMatchFilter {
 	 * 
 	 * @return List of matches ids played by all summoners
 	 */
-	public List<Integer> groupForTeam(List<MatchReference> matchRefenrences, int nbSummoners) {
-		Predicate<Integer> countPredicate = new CountPredicate(nbSummoners);
+	public List<Long> groupForTeam(List<MatchReference> matchRefenrences, int nbSummoners) {
+		Predicate<Long> countPredicate = new CountPredicate<Long>(nbSummoners);
 		
 		return matchRefenrences
 				.stream()
-				.map(matchRef -> Long.valueOf(matchRef.getGameId()).intValue())
+				.map(matchRef -> matchRef.getGameId())
 				.sorted()
 				.filter(countPredicate)
 				.collect(Collectors.toList());

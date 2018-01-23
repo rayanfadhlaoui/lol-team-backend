@@ -1,49 +1,52 @@
 package com.lolteam.model.importer;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.lolteam.entities.ChampionEntity;
 import com.lolteam.entities.MatchEntity;
-import com.lolteam.framework.factory.entities.MatchEntityFactory;
-import com.lolteam.services.RiotApiService;
+import com.lolteam.entities.SummonerEntity;
+import com.lolteam.framework.core.db.EntityCache;
+import com.lolteam.framework.factory.entities.MatchEntityBuilder;
+import com.lolteam.services.ChampionService;
+import com.lolteam.services.SummonerService;
+import com.lolteam.services.riotApi.RiotApiService;
 
-import net.rithms.riot.api.endpoints.match.dto.MatchReference;
-import net.rithms.riot.api.endpoints.match.dto.MatchTimeline;
+import net.rithms.riot.api.endpoints.match.dto.Match;
 
 public class MatchEntityImporter {
 
-	private List<Integer> matchesIdsToImport;
-	private Map<Long, List<MatchReference>> matchReferencesBySummonerId;
 	private RiotApiService riotApiService;
-	private MatchEntityFactory matchEntityFactory;
+	private EntityCache<Long, SummonerEntity> summonerCache;
+	private EntityCache<Integer, ChampionEntity> championCache;
 
-	public MatchEntityImporter(List<Integer> matchesIdsToImport, Map<Long, List<MatchReference>> matchReferencesBySummonerId,
-			RiotApiService riotApiService) {
-		this.matchesIdsToImport = matchesIdsToImport;
-		this.matchReferencesBySummonerId = matchReferencesBySummonerId;
+	public MatchEntityImporter(RiotApiService riotApiService, SummonerService summonerService, ChampionService championService) {
 		this.riotApiService = riotApiService;
-		matchEntityFactory = new MatchEntityFactory();
+		initCache(summonerService, championService);
 	}
 
-	//TODO JAVADOC + COMPLETER LA FACTORY + AJOUTER LE DETAIL PAR SUMMONERS
-	public List<MatchEntity> importAllMatches() {
-		
+	private void initCache(SummonerService summonerService, ChampionService championService) {
+		summonerCache = new EntityCache<>(accountId -> summonerService.smartLoadSummoner(accountId).get(), (accountId, summoner) -> summoner.getAccountId() == accountId);
+
+		championCache = new EntityCache<>(championId -> championService.smartLoadChampion(championId).get(),
+				(championId, champion) -> champion.getChampionId() == championId.intValue());
+
+	}
+
+	// TODO JAVADOC + COMPLETER LA FACTORY + AJOUTER LE DETAIL PAR SUMMONERS
+	public List<MatchEntity> importAllMatches(List<Long> matchesIdsToImport) {
+
 		return matchesIdsToImport.stream()
 				.map(this::createMatchEntity)
 				.filter(Objects::nonNull)
 				.collect(Collectors.toList());
 	}
 
-	private MatchEntity createMatchEntity(Integer matchId) {
-		Optional<MatchTimeline> optionalMatchTimeline = riotApiService.getTimelineByMatchId(matchId);
-		if(optionalMatchTimeline.isPresent()) {
-			return matchEntityFactory.createMatch(optionalMatchTimeline.get(), matchId);
-		}
-		
-		return null;
+	private MatchEntity createMatchEntity(Long matchId) {
+		Match match = riotApiService.getMatch(matchId).orElse(null);
+		return MatchEntityBuilder.init(match, summonerCache, championCache)
+				.extractSimpleStatsFromParticipants()
+				.get();
 	}
-
 }

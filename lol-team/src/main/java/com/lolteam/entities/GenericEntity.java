@@ -1,5 +1,6 @@
 package com.lolteam.entities;
 
 public interface GenericEntity{
-	Integer getId();
+	Long getId();
+	void setId(Long id);
 }

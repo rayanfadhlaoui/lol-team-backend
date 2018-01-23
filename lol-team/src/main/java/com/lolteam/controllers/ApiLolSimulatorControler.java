@@ -5,7 +5,7 @@ import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import net.rithms.riot.constant.Platform;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lolteam.services.RiotApiService;
+import com.lolteam.services.riotApi.RiotApiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

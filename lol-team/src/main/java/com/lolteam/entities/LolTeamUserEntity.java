@@ -9,7 +9,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "LolTeamUserEntity")
 @Table(name = "lt_user")
 @NamedQueries({
                 @NamedQuery(name = "ltUser.getUserFromloginAndPassword", query = "SELECT u FROM LolTeamUserEntity u WHERE  u.username = :username AND u.password = :password"),
@@ -19,7 +19,7 @@ public class LolTeamUserEntity implements GenericEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Long id;
 
 	private String username;
 
@@ -29,16 +29,16 @@ public class LolTeamUserEntity implements GenericEntity {
 
 	}
 
-	public LolTeamUserEntity(int id) {
+	public LolTeamUserEntity(Long id) {
 		this.id = id;
 	}
 
 	@Override
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

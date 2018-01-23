@@ -18,7 +18,7 @@ public class SessionControler {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public LolTeamUserEntity create(@RequestBody  LolTeamUserEntity user) {
-		LolTeamUserEntity result = userDao.getUserFromUsernameAndPassord(user).orElse(new LolTeamUserEntity(-1));
+		LolTeamUserEntity result = userDao.getUserFromUsernameAndPassord(user).orElse(new LolTeamUserEntity(-1l));
 		return result;
 	}
 }

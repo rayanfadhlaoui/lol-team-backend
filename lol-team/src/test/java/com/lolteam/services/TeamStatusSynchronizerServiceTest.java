@@ -21,6 +21,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.lolteam.entities.MatchEntity;
+import com.lolteam.entities.match.GameMode;
+import com.lolteam.services.riotApi.RiotApiService;
 
 import static com.lolteam.tests.assertions.LTAssertions.assertThat;
 
@@ -72,7 +74,7 @@ class TeamStatusSynchronizerServiceTest {
 		mockMatches();
 
 		List<MatchEntity> findRecentTeamMatches = service.findRecentTeamMatches(summoners);
-		assertAll(() -> assertEquals(1, findRecentTeamMatches.size()), () -> assertEquals(5, findRecentTeamMatches.get(0).getId().intValue()));
+		assertAll(() -> assertEquals(1, findRecentTeamMatches.size()), () -> assertEquals(5, findRecentTeamMatches.get(0).getGameId()));
 	}
 	
 	private void mockSummoners() {

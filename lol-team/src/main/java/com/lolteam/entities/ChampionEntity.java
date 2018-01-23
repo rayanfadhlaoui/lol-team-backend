@@ -9,45 +9,55 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Entity(name = "SummonerEntity")
-@Table(name = "summoner")
+@Entity(name = "ChampionEntity")
+@Table(name = "champion")
 @NamedQueries({
-	@NamedQuery(name = "summoner.getSummonerEntityByAccountId", query = "SELECT s FROM SummonerEntity s WHERE s.accountId = :accountId"),
+	@NamedQuery(name = "champion.getChampionFromChampionId", query = "SELECT c FROM ChampionEntity c WHERE c.championId = :championId"),
 })
-public class SummonerEntity implements GenericEntity{
-	
+public class ChampionEntity implements GenericEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
-	
-	@Column(name="account_id")
-	private long accountId;
-	
+	private Long id;
+
+	@Column(name = "champion_id")
+	private int championId;
+
 	private String name;
 
 	@Override
 	public Long getId() {
 		return id;
 	}
-	
+
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+
+	/**
+	 * External ID provided by the Riot API.
+	 * 
+	 * @return The champion ID provided by the Riot API.
+	 * 
+	 * @see net.rithms.riot.api.Dto.Champion
+	 */
+	public int getChampionId() {
+		return championId;
 	}
 
-	public long getAccountId() {
-		return accountId;
+	public void setChampionId(int championId) {
+		this.championId = championId;
+
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
+
 }

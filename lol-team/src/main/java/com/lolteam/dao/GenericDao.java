@@ -21,6 +21,13 @@ public abstract class GenericDao<T extends GenericEntity> {
 
 	protected abstract Class<T> getClassType();
 
+	//TODO CAN BE AUTOMATIC
+//	private Class<T> test(){
+//		Class<?> class1 = getClass();
+//		Type[] actualTypeArguments = ((ParameterizedType) class1.getGenericSuperclass()).getActualTypeArguments();
+//		return (Class<T>) actualTypeArguments[0];
+//	}
+	
 	public List<T> getAll() {
 		return getTypedQueryAll().getResultList();
 	}
@@ -36,16 +43,6 @@ public abstract class GenericDao<T extends GenericEntity> {
 		System.out.println(sqlRequest);
 		TypedQuery<T> query = em.createQuery(sqlRequest, classType).setParameter("id", id);
 		return query.getSingleResult();
-	}
-
-	private TypedQuery<T> getTypedQueryAll() {
-		final CriteriaBuilder lCriteriaBuilder = em.getCriteriaBuilder();
-		Class<T> classType = getClassType();
-		final CriteriaQuery<T> queryBuilder = lCriteriaBuilder.createQuery(classType);
-		final Root<T> lRoot = queryBuilder.from(classType);
-		queryBuilder.select(lRoot).where();
-		final TypedQuery<T> lTypedQuery = em.createQuery(queryBuilder);
-		return lTypedQuery;
 	}
 
 	@Transactional
@@ -72,6 +69,16 @@ public abstract class GenericDao<T extends GenericEntity> {
 			}
 		}
 		em.flush();
+	}
+	
+	private TypedQuery<T> getTypedQueryAll() {
+		final CriteriaBuilder lCriteriaBuilder = em.getCriteriaBuilder();
+		Class<T> classType = getClassType();
+		final CriteriaQuery<T> queryBuilder = lCriteriaBuilder.createQuery(classType);
+		final Root<T> lRoot = queryBuilder.from(classType);
+		queryBuilder.select(lRoot).where();
+		final TypedQuery<T> lTypedQuery = em.createQuery(queryBuilder);
+		return lTypedQuery;
 	}
 
 }

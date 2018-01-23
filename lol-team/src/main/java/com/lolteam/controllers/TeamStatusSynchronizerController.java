@@ -34,6 +34,7 @@ public class TeamStatusSynchronizerController {
 	public List<MatchEntity> findRecentTeamMatches() {
 		List<Summoner> teamSummoners = teamStatusSynchronizerService.getTeamSummoners(summonerNames);
 		List<MatchEntity> recentTeamMatch = teamStatusSynchronizerService.findRecentTeamMatches(teamSummoners);
+		teamStatusSynchronizerService.saveAllMatchesEntity(recentTeamMatch);
 		return recentTeamMatch;
 	}
 }

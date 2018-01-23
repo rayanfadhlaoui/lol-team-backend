@@ -2,9 +2,9 @@ package com.lolteam.model.filter;
 
 import java.util.function.Predicate;
 
-class CountPredicate implements Predicate<Integer>{
+class CountPredicate<T> implements Predicate<T>{
 
-	public Integer previousValue = -1;
+	public T previousValue = null;
 	public int valueCount;
 	private int nbCountExpected;
 
@@ -13,8 +13,8 @@ class CountPredicate implements Predicate<Integer>{
 	}
 
 	@Override
-	public boolean test(Integer value) {
-		if(previousValue == value) {
+	public boolean test(T value) {
+		if(previousValue != null && previousValue.equals(value)) {
 			valueCount++;
 		}
 		else {

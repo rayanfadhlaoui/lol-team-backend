@@ -121,7 +121,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.github.taycaldwell</groupId>
 			<artifactId>riot-api-java</artifactId>
