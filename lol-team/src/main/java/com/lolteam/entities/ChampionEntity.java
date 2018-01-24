@@ -24,7 +24,8 @@ public class ChampionEntity implements GenericEntity {
 	@Column(name = "champion_id")
 	private int championId;
 
-	private String name;
+	@Column(name = "champion_name")
+	private String championName;
 
 	@Override
 	public Long getId() {
@@ -52,12 +53,12 @@ public class ChampionEntity implements GenericEntity {
 
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setChampionName(String championName) {
+		this.championName = championName;
 	}
 	
-	public String getName() {
-		return name;
+	public String getChampionName() {
+		return championName;
 	}
 
 }

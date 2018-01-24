@@ -30,7 +30,7 @@ public class ChampionService {
 			if(champion != null) {
 				ChampionEntity championEntity = new ChampionEntity();
 				championEntity.setChampionId(championId);
-				championEntity.setName(champion.getName());
+				championEntity.setChampionName(champion.getName());
 				return championEntity;
 			}
 			return null;
