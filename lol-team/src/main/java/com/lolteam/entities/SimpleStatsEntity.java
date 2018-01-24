@@ -19,7 +19,7 @@ public class SimpleStatsEntity implements GenericEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "champion_id")
 	private ChampionEntity championEntity;
 

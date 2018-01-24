@@ -21,7 +21,7 @@ public class ParticipantStatsEntity implements GenericEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "summoner_id")
 	private SummonerEntity summonerEntity;
 

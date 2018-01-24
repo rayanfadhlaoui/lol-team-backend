@@ -3,6 +3,8 @@ package com.lolteam.services;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ public class ChampionService {
 	public ChampionService() {
 	}
 		
+	@Transactional
 	public Optional<ChampionEntity> smartLoadChampion(int championId) {
 		Supplier<ChampionEntity> championSupplier = () -> {
 			Champion champion = riotApiService.getChampion(championId).orElse(null);
@@ -31,6 +34,7 @@ public class ChampionService {
 				ChampionEntity championEntity = new ChampionEntity();
 				championEntity.setChampionId(championId);
 				championEntity.setChampionName(champion.getName());
+				championDao.save(championEntity);
 				return championEntity;
 			}
 			return null;
