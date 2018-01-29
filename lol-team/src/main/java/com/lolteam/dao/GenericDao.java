@@ -10,8 +10,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import com.lolteam.entities.GenericEntity;
 
 public abstract class GenericDao<T extends GenericEntity> {
@@ -45,9 +43,12 @@ public abstract class GenericDao<T extends GenericEntity> {
 		return query.getSingleResult();
 	}
 
-	@Transactional
 	public void save(T entity) {
-		em.persist(entity);
+		if (entity.getId() == null) {
+			em.persist(entity);
+		} else {
+			em.merge(entity);
+		}
 		em.flush();
 	}
 

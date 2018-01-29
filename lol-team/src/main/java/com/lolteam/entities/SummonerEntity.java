@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "summoner")
 @NamedQueries({
 	@NamedQuery(name = "summoner.getSummonerEntityByAccountId", query = "SELECT s FROM SummonerEntity s WHERE s.accountId = :accountId"),
+	@NamedQuery(name = "summoner.getSummonerEntityBySummonerName", query = "SELECT s FROM SummonerEntity s WHERE s.name = :summonerName"),
 })
 public class SummonerEntity implements GenericEntity{
 	
@@ -49,5 +50,19 @@ public class SummonerEntity implements GenericEntity{
 
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof SummonerEntity) {
+			SummonerEntity summonerEntity = (SummonerEntity) obj;
+			return id == summonerEntity.id;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int) (id * 31);
 	}
 }

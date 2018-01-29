@@ -29,4 +29,16 @@ public class SummonerDao extends GenericDao<SummonerEntity>{
 		return Optional.empty();
 	}
 
+	public Optional<SummonerEntity> getSummonerEntityBySummonerName(String summonerName) {
+		try {
+			return Optional.of(em.createNamedQuery("summoner.getSummonerEntityBySummonerName", SummonerEntity.class)
+			                     .setParameter("summonerName", summonerName)
+			                     .getSingleResult());
+		} catch (NoResultException nre) {
+		} catch (NonUniqueResultException nure) {
+		}
+		//TODO HANDLE EXCEPTION
+		return Optional.empty();
+	}
+
 }

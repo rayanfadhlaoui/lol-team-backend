@@ -23,10 +23,27 @@ public class SummonerService {
 	@Autowired
 	private RiotApiService riotApiService;
 		
-	@Transactional
 	public Optional<SummonerEntity> smartLoadSummoner(long accountId) {
-		Supplier<SummonerEntity> summonerSupplier = () -> {
-			Summoner summoner = riotApiService.getSummonerByAccountId(accountId).orElse(null);
+		Supplier<SummonerEntity> summonerSupplier = apiSummonerSupplier(() -> riotApiService.getSummonerByAccountId(accountId).orElse(null));
+		
+		SummonerEntity summonerEntity = summonerDao.getSummonerEntityByAccountId(accountId)
+				.orElseGet(summonerSupplier);
+		return Optional.ofNullable(summonerEntity);
+	}
+	
+	
+	public Optional<SummonerEntity> smartLoadSummoner(String summonerName) {
+		Supplier<SummonerEntity> summonerSupplier = apiSummonerSupplier(() -> riotApiService.getSummonerByName(summonerName).orElse(null));
+		
+		SummonerEntity summonerEntity = summonerDao.getSummonerEntityBySummonerName(summonerName)
+				.orElseGet(summonerSupplier);
+		return Optional.ofNullable(summonerEntity);
+	}
+
+	@Transactional
+	private Supplier<SummonerEntity> apiSummonerSupplier(Supplier<Summoner> summonerSupplier) {
+		Supplier<SummonerEntity> apiSummonerSupplier = () -> {
+			Summoner summoner = summonerSupplier.get();
 			if(summoner != null) {
 				SummonerEntity summonerEntity = new SummonerEntity();
 				summonerEntity.setAccountId(summoner.getAccountId());
@@ -36,9 +53,6 @@ public class SummonerService {
 			}
 			return null;
 		};
-		
-		SummonerEntity summonerEntity = summonerDao.getSummonerEntityByAccountId(accountId)
-				.orElseGet(summonerSupplier);
-		return Optional.ofNullable(summonerEntity);
+		return apiSummonerSupplier;
 	}
 }

@@ -21,7 +21,7 @@ public class TeamStatusSynchronizerController {
 	private TeamStatusSynchronizerService teamStatusSynchronizerService;
 
 	// TODO persit into database
-	private static final List<String> summonerNames = Arrays.asList("Dremsy", "0Kordan0", "Victoriusss", "Luidji94", "Wasagreen");
+	private static final List<String> summonerNames = Arrays.asList("Dremsy", "0Kordan0", "Victoriusss", "Luidji94", "Blooday94");
 
 
 	// TODO JAVADOC -> return emptyList if a error occurs

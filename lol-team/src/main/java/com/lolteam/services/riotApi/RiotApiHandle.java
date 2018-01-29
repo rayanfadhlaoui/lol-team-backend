@@ -31,6 +31,7 @@ class RiotApiHandle {
 			return execute(supplier);
 		}
 		//todo log error
+		System.out.println("Error "+ e.getMessage());
 		return null;
 	}
 	
