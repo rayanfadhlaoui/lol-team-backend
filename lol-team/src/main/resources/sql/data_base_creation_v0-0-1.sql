@@ -117,4 +117,4 @@ CREATE TABLE public.team_summoner
         ON DELETE NO ACTION
 ); 
 
-/*test*/
+/*test 666 */
