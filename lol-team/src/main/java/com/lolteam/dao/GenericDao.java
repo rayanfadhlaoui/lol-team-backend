@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import com.lolteam.entities.GenericEntity;
 
@@ -19,13 +21,14 @@ public abstract class GenericDao<T extends GenericEntity> {
 
 	protected abstract Class<T> getClassType();
 
-	//TODO CAN BE AUTOMATIC
-//	private Class<T> test(){
-//		Class<?> class1 = getClass();
-//		Type[] actualTypeArguments = ((ParameterizedType) class1.getGenericSuperclass()).getActualTypeArguments();
-//		return (Class<T>) actualTypeArguments[0];
-//	}
-	
+	// TODO CAN BE AUTOMATIC
+	// private Class<T> test(){
+	// Class<?> class1 = getClass();
+	// Type[] actualTypeArguments = ((ParameterizedType)
+	// class1.getGenericSuperclass()).getActualTypeArguments();
+	// return (Class<T>) actualTypeArguments[0];
+	// }
+
 	public List<T> getAll() {
 		return getTypedQueryAll().getResultList();
 	}
@@ -43,6 +46,7 @@ public abstract class GenericDao<T extends GenericEntity> {
 		return query.getSingleResult();
 	}
 
+	@Transactional
 	public void save(T entity) {
 		if (entity.getId() == null) {
 			em.persist(entity);
@@ -71,7 +75,7 @@ public abstract class GenericDao<T extends GenericEntity> {
 		}
 		em.flush();
 	}
-	
+
 	private TypedQuery<T> getTypedQueryAll() {
 		final CriteriaBuilder lCriteriaBuilder = em.getCriteriaBuilder();
 		Class<T> classType = getClassType();

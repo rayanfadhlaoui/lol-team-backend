@@ -31,7 +31,6 @@ public class SummonerService {
 		return Optional.ofNullable(summonerEntity);
 	}
 	
-	
 	public Optional<SummonerEntity> smartLoadSummoner(String summonerName) {
 		Supplier<SummonerEntity> summonerSupplier = apiSummonerSupplier(() -> riotApiService.getSummonerByName(summonerName).orElse(null));
 		
@@ -40,7 +39,6 @@ public class SummonerService {
 		return Optional.ofNullable(summonerEntity);
 	}
 
-	@Transactional
 	private Supplier<SummonerEntity> apiSummonerSupplier(Supplier<Summoner> summonerSupplier) {
 		Supplier<SummonerEntity> apiSummonerSupplier = () -> {
 			Summoner summoner = summonerSupplier.get();
@@ -54,5 +52,10 @@ public class SummonerService {
 			return null;
 		};
 		return apiSummonerSupplier;
+	}
+
+	@Transactional
+	public void save(SummonerEntity summonerEntity) {
+		summonerDao.save(summonerEntity);
 	}
 }

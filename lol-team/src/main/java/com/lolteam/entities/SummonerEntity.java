@@ -1,5 +1,7 @@
 package com.lolteam.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +22,16 @@ public class SummonerEntity implements GenericEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private long id;
+	private Long id;
 	
 	@Column(name="account_id")
 	private long accountId;
 	
 	private String name;
 
+	@Column(name= "last_update")
+	private LocalDate lastUpdate;
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -52,6 +57,14 @@ public class SummonerEntity implements GenericEntity{
 		return name;
 	}
 	
+	public LocalDate getLastUpdate() {
+		return lastUpdate;
+	}
+	
+	public void setLastUpdate(LocalDate lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof SummonerEntity) {
@@ -65,4 +78,5 @@ public class SummonerEntity implements GenericEntity{
 	public int hashCode() {
 		return (int) (id * 31);
 	}
+
 }

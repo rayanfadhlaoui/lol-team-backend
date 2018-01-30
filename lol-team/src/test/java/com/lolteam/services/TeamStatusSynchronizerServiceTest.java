@@ -24,8 +24,6 @@ import com.lolteam.entities.MatchEntity;
 import com.lolteam.entities.match.GameMode;
 import com.lolteam.services.riotApi.RiotApiService;
 
-import static com.lolteam.tests.assertions.LTAssertions.assertThat;
-
 import lol.api.factory.LolApiFactory;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.match.dto.MatchList;

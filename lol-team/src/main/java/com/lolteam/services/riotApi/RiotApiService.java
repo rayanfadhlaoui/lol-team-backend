@@ -13,6 +13,7 @@ import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.endpoints.static_data.dto.Champion;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import net.rithms.riot.api.endpoints.match.dto.Match;
+import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 import net.rithms.riot.constant.Platform;
 
@@ -58,5 +59,10 @@ public class RiotApiService extends RiotApi {
 	public Optional<Summoner> getSummonerByName(String summonerName) {
 		Summoner summoner = riotApiHandle.execute(() -> getSummonerByName(Platform.EUW, summonerName));
 		return Optional.ofNullable(summoner);
+	}
+	
+	public MatchList getMatchListByAccountId(long accountId, long beginTime, int startIndex, int endIndex) {
+		return 	riotApiHandle.execute( () -> getMatchListByAccountId(Platform.EUW, accountId, null, null, null, beginTime, -1, startIndex, endIndex));
+
 	}
 }
