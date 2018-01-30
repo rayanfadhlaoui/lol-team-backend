@@ -115,4 +115,4 @@ CREATE TABLE public.team_summoner
         REFERENCES public.team (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-);
+); 
