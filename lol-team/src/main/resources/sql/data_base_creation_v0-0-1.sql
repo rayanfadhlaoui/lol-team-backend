@@ -1,5 +1,3 @@
-
-
 /* Map entity LolTeamUserEntity */
 CREATE SEQUENCE user_id_seq START 1;
 
@@ -9,7 +7,7 @@ CREATE TABLE public.lt_user
     username text COLLATE pg_catalog."default" NOT NULL,
     password text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT user_name_unique UNIQUE (user_name)
+    CONSTRAINT user_name_unique UNIQUE (username)
 )
 
 /*Map entity SummonerEntity */
@@ -47,29 +45,6 @@ CREATE TABLE public.match
     CONSTRAINT match_pkey PRIMARY KEY (id)
 )
 
-CREATE SEQUENCE public.participant_stats_id_seq START 1;
-
-CREATE TABLE public.participant_stats
-(
-    id integer NOT NULL DEFAULT nextval('participant_stats_id_seq'::regclass),
-    summoner_id bigint NOT NULL,
-    simple_stats_id bigint NOT NULL,
-    match_id bigint NOT NULL,
-    CONSTRAINT participant_stats_pkey PRIMARY KEY (id),
-    CONSTRAINT match_id_fk FOREIGN KEY (match_id)
-        REFERENCES public.match (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT simple_stats_id_fk FOREIGN KEY (simple_stats_id)
-        REFERENCES public.simple_stats (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT summoner_id_fk FOREIGN KEY (summoner_id)
-        REFERENCES public.summoner (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-
 CREATE SEQUENCE public.simple_stats_id_seq START 1;
 
 CREATE TABLE public.simple_stats
@@ -98,6 +73,29 @@ CREATE TABLE public.team
     CONSTRAINT team_pkey PRIMARY KEY (id),
     CONSTRAINT user_id_fk FOREIGN KEY (user_id)
         REFERENCES public.lt_user (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+CREATE SEQUENCE public.participant_stats_id_seq START 1;
+
+CREATE TABLE public.participant_stats
+(
+    id integer NOT NULL DEFAULT nextval('participant_stats_id_seq'::regclass),
+    summoner_id bigint NOT NULL,
+    simple_stats_id bigint NOT NULL,
+    match_id bigint NOT NULL,
+    CONSTRAINT participant_stats_pkey PRIMARY KEY (id),
+    CONSTRAINT match_id_fk FOREIGN KEY (match_id)
+        REFERENCES public.match (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT simple_stats_id_fk FOREIGN KEY (simple_stats_id)
+        REFERENCES public.simple_stats (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT summoner_id_fk FOREIGN KEY (summoner_id)
+        REFERENCES public.summoner (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
