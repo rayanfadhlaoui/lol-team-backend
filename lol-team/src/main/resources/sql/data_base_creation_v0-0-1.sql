@@ -116,3 +116,5 @@ CREATE TABLE public.team_summoner
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 ); 
+
+/*test*/
