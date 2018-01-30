@@ -8,10 +8,9 @@ CREATE TABLE public.lt_user
     password text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id),
     CONSTRAINT user_name_unique UNIQUE (username)
-)
+);
 
 /*Map entity SummonerEntity */
-    
 CREATE SEQUENCE public.summoner_id_seq START 1;
 
 CREATE TABLE public.summoner
@@ -21,7 +20,7 @@ CREATE TABLE public.summoner
     name text COLLATE pg_catalog."default" NOT NULL,
     last_update date,
     CONSTRAINT summoner_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE SEQUENCE public.champion_id_seq START 1;
 
@@ -31,7 +30,7 @@ CREATE TABLE public.champion
     champion_id bigint NOT NULL,
     champion_name text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT champion_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE SEQUENCE public.match_id_seq START 1;
 
@@ -43,7 +42,7 @@ CREATE TABLE public.match
     game_mode text COLLATE pg_catalog."default" NOT NULL,
     game_version text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT match_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE SEQUENCE public.simple_stats_id_seq START 1;
 
@@ -61,7 +60,7 @@ CREATE TABLE public.simple_stats
         REFERENCES public.champion (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 CREATE SEQUENCE public.team_id_seq START 1;
 
@@ -75,7 +74,7 @@ CREATE TABLE public.team
         REFERENCES public.lt_user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 CREATE SEQUENCE public.participant_stats_id_seq START 1;
 
@@ -98,7 +97,7 @@ CREATE TABLE public.participant_stats
         REFERENCES public.summoner (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 CREATE SEQUENCE public.team_summoner_id_seq START 1;
 
@@ -116,4 +115,4 @@ CREATE TABLE public.team_summoner
         REFERENCES public.team (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
