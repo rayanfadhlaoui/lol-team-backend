@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import lol.api.factory.LolApiFactory;
+import com.lolteam.api.factory.LolApiFactory;
+
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;
 import static org.junit.jupiter.api.Assertions.*;
 

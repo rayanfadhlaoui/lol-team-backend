@@ -1,6 +1,7 @@
 package com.lolteam.services;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
@@ -10,12 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.lolteam.dao.ChampionDao;
 import com.lolteam.entities.ChampionEntity;
+import com.lolteam.framework.core.db.EntityCache;
 import com.lolteam.services.riotApi.RiotApiService;
 
 import net.rithms.riot.api.endpoints.static_data.dto.Champion;
 
-@Service
-public class ChampionService {
+@Service("championService")
+public class ChampionService implements EntityService<Integer, ChampionEntity>{
 	
 	@Autowired
 	private ChampionDao championDao;
@@ -43,6 +45,15 @@ public class ChampionService {
 		ChampionEntity championEntity = championDao.getChampionEntityByChampionId(championId)
 				.orElseGet(championSupplier);
 		return Optional.ofNullable(championEntity);
+	}
+
+	@Override
+	public EntityCache<Integer, ChampionEntity> getCache() {
+		Function<Integer, ChampionEntity> championLoaderFunction = championId -> smartLoadChampion(championId)
+				.orElse(null);
+		return new EntityCache<>(championLoaderFunction,
+				(championId, champion) -> champion.getChampionId() == championId.intValue());
+
 	}
 
 }

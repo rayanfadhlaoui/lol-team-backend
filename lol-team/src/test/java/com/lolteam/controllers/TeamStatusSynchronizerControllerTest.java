@@ -23,10 +23,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.lolteam.api.factory.LolApiFactory;
 import com.lolteam.entities.MatchEntity;
 import com.lolteam.services.riotApi.RiotApiService;
 
-import lol.api.factory.LolApiFactory;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.constant.Platform;

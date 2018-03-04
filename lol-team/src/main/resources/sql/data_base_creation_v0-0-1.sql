@@ -18,7 +18,8 @@ CREATE TABLE public.summoner
     id integer NOT NULL DEFAULT nextval('summoner_id_seq'::regclass),
     account_id bigint NOT NULL,
     name text COLLATE pg_catalog."default" NOT NULL,
-    last_update date,
+    last_update timestamp(6) without time zone,,
+    total_games integer,
     CONSTRAINT summoner_pkey PRIMARY KEY (id)
 );
 
@@ -99,9 +100,9 @@ CREATE TABLE public.participant_stats
         ON DELETE NO ACTION
 );
 
-CREATE SEQUENCE public.team_summoner_id_seq START 1;
+CREATE SEQUENCE team_summoner_id_seq START 1;
 
-CREATE TABLE public.team_summoner
+CREATE TABLE team_summoner
 (
     id integer NOT NULL DEFAULT nextval('team_summoner_id_seq'::regclass),
     summoner_id bigint NOT NULL,
@@ -112,11 +113,25 @@ CREATE TABLE public.team_summoner
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT team_id_fk FOREIGN KEY (team_id)
-        REFERENCES public.team (id) MATCH SIMPLE
+        REFERENCES team (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 ); 
 
-/*test 666 */
+/*************************
+ *      01/02/2018		 *
+ *************************/
 
-/*Test Rayan*/
+CREATE SEQUENCE games_to_import_id_seq START 1;
+
+CREATE TABLE games_to_import
+(
+    id integer NOT NULL DEFAULT nextval('games_to_import_id_seq'::regclass),
+    user_id bigint NOT NULL,
+    match_id bigint NOT NULL,
+    CONSTRAINT games_to_import_pkey PRIMARY KEY (id),
+    CONSTRAINT user_id_fk FOREIGN KEY (user_id)
+        REFERENCES lt_user (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)

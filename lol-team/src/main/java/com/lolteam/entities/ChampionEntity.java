@@ -61,4 +61,19 @@ public class ChampionEntity implements GenericEntity {
 		return championName;
 	}
 
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof ChampionEntity) {
+			ChampionEntity championEntity = (ChampionEntity) obj;
+			return id == championEntity.id;
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int) (id * 31);
+	}
+
 }

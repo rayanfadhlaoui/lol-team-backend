@@ -24,7 +24,6 @@ import com.lolteam.entities.MatchEntity;
 import com.lolteam.entities.match.GameMode;
 import com.lolteam.services.riotApi.RiotApiService;
 
-import lol.api.factory.LolApiFactory;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
@@ -58,7 +57,7 @@ class TeamStatusSynchronizerServiceTest {
 		List<Summoner> summoners = service.getTeamSummoners(summonerNames);
 		assertEquals(5, summoners.size());
 		List<String> resultSummonerName = summoners.stream().map(summoner -> summoner.getName()).collect(Collectors.toList());
-		assertThat(resultSummonerName).contains("Dremsy", "0Kordan0", "Victoriusss", "Luidji94", "Wasagreen");
+		LTAssertions.assertThat(resultSummonerName).contains("Dremsy", "0Kordan0", "Victoriusss", "Luidji94", "Wasagreen");
 	}
 
 
