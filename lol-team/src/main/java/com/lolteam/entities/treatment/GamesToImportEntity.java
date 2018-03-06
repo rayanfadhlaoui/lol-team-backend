@@ -20,7 +20,7 @@ import com.lolteam.entities.LolTeamUserEntity;
 @Entity(name = "GamesToImportEntity")
 @Table(name = "games_to_import")
 @NamedQueries({
-	@NamedQuery(name = "gamesToImport.findGamesToImport", query = "SELECT g FROM GamesToImportEntity g WHERE g.importStatus = com.lolteam.entities.treatment.ImportStatus.WAITING"),
+	@NamedQuery(name = "GamesToImportEntity.findGamesToImport", query = "SELECT g FROM GamesToImportEntity g WHERE g.importStatus = com.lolteam.entities.treatment.ImportStatus.WAITING"),
 })
 public class GamesToImportEntity implements GenericEntity {
 

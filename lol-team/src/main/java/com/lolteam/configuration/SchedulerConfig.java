@@ -1,6 +1,7 @@
 package com.lolteam.configuration;
 
 import java.util.concurrent.Executor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -11,11 +12,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Configuration
 @EnableAsync
 @EnableScheduling
-//http://www.javarticles.com/2016/01/spring-componentscan-annotation-example.html
-//@ComponentScan(basePackages = { "com.lolteam.configuration", "com.lolteam.controllers", "com.lolteam.services", "com.lolteam.dao", "com.lolteam.myteam.components" })
-//@ComponentScan(basePackages = { "com.lolteam" })
-public class SpringConfiguration {
-
+public class SchedulerConfig {
+	
 	@Bean
 	public Executor taskExecutor() {
 	    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

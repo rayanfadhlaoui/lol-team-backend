@@ -15,7 +15,7 @@ public class GamesToImportDao extends GenericDao<GamesToImportEntity> {
 	}
 
 	public List<GamesToImportEntity> findGamesToImport(int nbRows) {
-		return em.createNamedQuery("gamesToImport.findGamesToImport", GamesToImportEntity.class)
+		return em.createNamedQuery("GamesToImportEntity.findGamesToImport", GamesToImportEntity.class)
 				.setMaxResults(nbRows)
 				.getResultList();
 	}
