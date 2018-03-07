@@ -91,11 +91,11 @@ CREATE TABLE public.participant_stats
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT simple_stats_id_fk FOREIGN KEY (simple_stats_id)
-        REFERENCES public.simple_stats (id) MATCH SIMPLE
+        REFERENCES simple_stats (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT summoner_id_fk FOREIGN KEY (summoner_id)
-        REFERENCES public.summoner (id) MATCH SIMPLE
+        REFERENCES summoner (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -109,7 +109,7 @@ CREATE TABLE team_summoner
     team_id bigint NOT NULL,
     CONSTRAINT team_summoner_pkey PRIMARY KEY (id),
     CONSTRAINT summoner_id_fk FOREIGN KEY (summoner_id)
-        REFERENCES public.summoner (id) MATCH SIMPLE
+        REFERENCES summoner (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT team_id_fk FOREIGN KEY (team_id)
@@ -134,4 +134,19 @@ CREATE TABLE games_to_import
         REFERENCES lt_user (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
+)
+
+
+/*************************
+ *      07/03/2018		 *
+ *************************/
+
+CREATE SEQUENCE setting_id_seq START 1;
+
+CREATE TABLE setting
+(
+    id integer NOT NULL DEFAULT nextval('setting_id_seq'::regclass),
+    name text COLLATE pg_catalog."default" NOT NULL,
+    value text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT setting_pkey PRIMARY KEY (id)
 )

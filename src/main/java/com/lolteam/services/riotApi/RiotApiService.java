@@ -8,10 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lolteam.entities.match.QueueEnum;
-import com.lolteam.framework.utils.properties.LolTeamProperties;
+import com.lolteam.services.SettingService;
 
 import net.rithms.riot.api.ApiConfig;
 import net.rithms.riot.api.RiotApi;
@@ -24,12 +27,15 @@ import net.rithms.riot.constant.Platform;
 
 @Service
 public class RiotApiService {
-	private static final String LOL_API_KEY = "key";
 	private RiotApiHandle riotApiHandle = new RiotApiHandle();
 	private RiotApi riotApi;
+	
+	@Autowired
+	private SettingService settingService;
 
-	public RiotApiService() {
-		riotApi = new RiotApi(new ApiConfig().setKey(LolTeamProperties.getPropertity(LOL_API_KEY)));
+	@PostConstruct
+	public void init() {
+		riotApi = new RiotApi(new ApiConfig().setKey(settingService.getRiotKey()));
 	}
 
 	// public Optional<MatchTimeline> getTimelineByMatchId(long matchId) {

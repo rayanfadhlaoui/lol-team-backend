@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EntityScan("com.lolteam")
+@EntityScan("com.lolteam.entities")
 @ComponentScan(basePackages = {"com.lolteam", "com.lolteam.entities.treatment"})
 public class LolteamApplication {
 
