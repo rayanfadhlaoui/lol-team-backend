@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
-<bean id="wtf" class="com.lolteam.controllers.TeamStatusSynchronizerController"/>
-<bean id="wtf2" class="com.lolteam.services.RiotApiService"/>
-<bean id="wtf3" class="com.lolteam.services.TeamStatusSynchronizerService"/>
-
-</beans>

@@ -1,7 +1,0 @@
-Ctrl + E 		-> Quick Fix ( Proposition d'eclipse pour régler un problème).
-Ctrl + G 		-> Open Type ( Permets de rapidement retrouver une classe)
-Ctrl+Shift+C 	-> Commentaire
-Ctrl+R+V		-> Créer une variable
-Ctrl+D			-> Supprime une ligne
-Ctrl+Shift+D	-> Duplique la ligne
-Ctrl+Shift+G	-> trouve les références
