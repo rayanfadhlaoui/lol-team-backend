@@ -17,6 +17,15 @@ public class ChampionDao extends GenericDao<ChampionEntity>{
 		return ChampionEntity.class;
 	}
 	
+	/** 
+	 * Returns a optional champion from a champion id.
+	 * The optional will be empty if more than one champion or no champion at all are associated to the championId 
+	 * 
+	 * @param championId 
+	 * 		The championId
+	 * 
+	 * @return An optional on a ChampionId
+	 */
 	public Optional<ChampionEntity> getChampionEntityByChampionId(int championId) {
 		try {
 			return Optional.of(em.createNamedQuery("champion.getChampionFromChampionId", ChampionEntity.class)

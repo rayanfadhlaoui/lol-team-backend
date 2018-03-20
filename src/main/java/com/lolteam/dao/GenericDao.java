@@ -18,6 +18,10 @@ public abstract class GenericDao<T extends GenericEntity> {
 	@PersistenceContext
 	protected EntityManager em;
 
+	/**
+	 * Returns the classType of the entity associated to the DAO.
+	 * @return The Class of the entity associated to the DAO.
+	 * */
 	protected abstract Class<T> getClassType();
 
 	// TODO CAN BE AUTOMATIC
@@ -28,14 +32,44 @@ public abstract class GenericDao<T extends GenericEntity> {
 	// return (Class<T>) actualTypeArguments[0];
 	// }
 
+	/** 
+	 * Returns a list of all the entities in the database.<br/>
+	 * <b>Careful, if the database contains too many entities, this can cause a OutOfMemoryException</b>
+	 *  
+	 * @return A list of all the entities.
+	 */
+	//todo add test
 	public List<T> getAll() {
 		return getTypedQueryAll().getResultList();
 	}
 
+	/** 
+	 * Returns a list of entities with no specific filter.
+	 * The maximum size of the list depends on the parameter maxResult
+	 * 
+	 * @param maxResult 
+	 * 		Maximum rows returned by the method.
+	 *  
+	 * @return A list of all the entities.
+	 */
 	public List<T> getAll(int maxResult) {
-		return getTypedQueryAll().setMaxResults(maxResult).getResultList();
+		return getTypedQueryAll()
+				.setMaxResults(maxResult)
+				.getResultList();
 	}
 
+	/** 
+	 * Returns the entity associated to the parameter id
+	 * 
+	 * @param maxResult 
+	 * 		Maximum rows returned by the method.
+	 *  
+	 * @param id 
+	 *  	The id.
+	 *  
+	 * @return The entity associated to an id.
+	 */
+	//todo handle possible exceptions
 	public T get(int id) {
 		Class<T> classType = getClassType();
 
@@ -45,6 +79,14 @@ public abstract class GenericDao<T extends GenericEntity> {
 		return query.getSingleResult();
 	}
 
+	/** 
+	 * Save the entity.
+	 * 
+	 * @param entity 
+	 * 		The entity to save.
+	 *  
+	 */
+	//todo remove the Transactional annotation
 	@Transactional
 	public void save(T entity) {
 		if (entity.getId() == null) {
@@ -55,6 +97,13 @@ public abstract class GenericDao<T extends GenericEntity> {
 		em.flush();
 	}
 
+	/** 
+	 * Save all the entities.
+	 * 
+	 * @param listEntities 
+	 * 		The entities to save.
+	 *  
+	 */
 	public void saveAll(Collection<T> listEntities) {
 		for (T entity : listEntities) {
 			if (entity.getId() == null) {
@@ -65,6 +114,13 @@ public abstract class GenericDao<T extends GenericEntity> {
 		}
 	}
 
+	/** 
+	 * delete all the entities.
+	 * 
+	 * @param listEntities 
+	 * 		The entities to delete.
+	 *  
+	 */
 	public void deleteAll(List<T> listEntities) {
 		for (T entity : listEntities) {
 			if (entity.getId() != null) {
@@ -75,14 +131,19 @@ public abstract class GenericDao<T extends GenericEntity> {
 		em.flush();
 	}
 
+	/** 
+	 * Returns a { {@link TypeQuery} able to fetch all the entities.
+	 * 
+	 * @return Returns a { {@link TypeQuery} able to fetch all the entities..
+	 *  
+	 */
 	private TypedQuery<T> getTypedQueryAll() {
 		final CriteriaBuilder lCriteriaBuilder = em.getCriteriaBuilder();
 		Class<T> classType = getClassType();
 		final CriteriaQuery<T> queryBuilder = lCriteriaBuilder.createQuery(classType);
 		final Root<T> lRoot = queryBuilder.from(classType);
 		queryBuilder.select(lRoot).where();
-		final TypedQuery<T> lTypedQuery = em.createQuery(queryBuilder);
-		return lTypedQuery;
+		return em.createQuery(queryBuilder);
 	}
 
 }

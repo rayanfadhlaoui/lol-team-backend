@@ -14,6 +14,15 @@ public class GamesToImportDao extends GenericDao<GamesToImportEntity> {
 		return GamesToImportEntity.class;
 	}
 
+	/** 
+	 * Returns a list of {@link GamesToImportEntity} with the status 'Waiting' 
+	 * for a given number of rows.
+	 * 
+	 * @param nbRows 
+	 * 		The number of rows to be returned
+	 * 
+	 * @return A list of {@link GamesToImportEntity}
+	 * */
 	public List<GamesToImportEntity> findGamesToImport(int nbRows) {
 		return em.createNamedQuery("GamesToImportEntity.findGamesToImport", GamesToImportEntity.class)
 				.setMaxResults(nbRows)

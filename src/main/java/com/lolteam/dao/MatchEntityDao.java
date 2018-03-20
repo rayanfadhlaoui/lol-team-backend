@@ -16,6 +16,11 @@ public class MatchEntityDao extends GenericDao<MatchEntity>{
 		return MatchEntity.class;
 	}
 
+	/** Returns the number of games imported for a given summoner.
+	 * 
+	 * @param summoner 
+	 * 		The summoner.
+	 * @return The number of games imported for a given summoner.*/
 	public int getNbGamesImported(SummonerEntity summoner) {
 		long nbGamesImported = em.createNamedQuery("match.getNbGamesImported", Long.class)
 				.setParameter("summonerId", summoner.getId())
@@ -23,9 +28,13 @@ public class MatchEntityDao extends GenericDao<MatchEntity>{
 		return NumberConvertor.longToInt(nbGamesImported);		
 	}
 
-	public List<Long> getGameIdImported(SummonerEntity summonerEntity) {
+	/**Returns a list of the games ids imported for a given summoner.
+	 * @param summoner 
+	 * 		The summoner.
+	 * @return A list of the games ids imported for a given summoner.*/
+	public List<Long> getGameIdImported(SummonerEntity summoner) {
 			return em.createNamedQuery("match.getGameIdImported", Long.class)
-			.setParameter("summonerId", summonerEntity.getId())
+			.setParameter("summonerId", summoner.getId())
 			.getResultList();
 	}
 

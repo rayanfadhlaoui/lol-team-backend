@@ -17,6 +17,15 @@ public class SummonerDao extends GenericDao<SummonerEntity>{
 		return SummonerEntity.class;
 	}
 	
+	/** 
+	 * Returns a optional {@link SummonerEntity} associated to the given account id.
+	 * The optional will be empty if more than one summoners or no summoner at all are associated to the parameters 
+	 * 
+	 * @param accountId 
+	 * 		The accountId
+	 * 
+	 * @return An optional on a summoner
+	 */
 	public Optional<SummonerEntity> getSummonerEntityByAccountId(long accountId) {
 		try {
 			return Optional.of(em.createNamedQuery("summoner.getSummonerEntityByAccountId", SummonerEntity.class)
@@ -29,6 +38,15 @@ public class SummonerDao extends GenericDao<SummonerEntity>{
 		return Optional.empty();
 	}
 
+	/** 
+	 * Returns a optional {@link SummonerEntity} associated to the given summoner name.
+	 * The optional will be empty if more than one summoners or no summoner at all are associated to the parameters 
+	 * 
+	 * @param summonerName 
+	 * 		The summoner's name
+	 * 
+	 * @return An optional on a summoner
+	 */
 	public Optional<SummonerEntity> getSummonerEntityBySummonerName(String summonerName) {
 		try {
 			return Optional.of(em.createNamedQuery("summoner.getSummonerEntityBySummonerName", SummonerEntity.class)

@@ -12,6 +12,9 @@ public class SettingsDao extends GenericDao<SettingEntity> {
 		return SettingEntity.class;
 	}
 
+	/** Returns the RIOT key
+	 * @return The RIOT Api key.*/
+	//todo handle possible exceptions.
 	public String getRiotKey() {
 		return em.createNamedQuery("SettingEntity.getRiotKey", String.class)
 				.getSingleResult();
