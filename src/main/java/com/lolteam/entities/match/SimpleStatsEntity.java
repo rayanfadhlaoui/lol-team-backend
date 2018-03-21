@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.lolteam.entities.ChampionEntity;
-import com.lolteam.entities.GenericEntity;
+import com.lolteam.entities.general.ChampionEntity;
+import com.lolteam.entities.general.GenericEntity;
 
 @Entity(name = "SimpleStatsEntity")
 @Table(name = "simple_stats")

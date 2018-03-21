@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lolteam.dao.LolTeamUserDao;
-import com.lolteam.entities.LolTeamUserEntity;
+import com.lolteam.entities.general.LolTeamUserEntity;
 
 @RestController
 @RequestMapping(value="/sessions")

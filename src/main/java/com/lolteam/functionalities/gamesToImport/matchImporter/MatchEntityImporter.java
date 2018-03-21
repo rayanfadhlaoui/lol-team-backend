@@ -2,11 +2,10 @@ package com.lolteam.functionalities.gamesToImport.matchImporter;
 
 import java.util.Optional;
 
-import com.lolteam.entities.ChampionEntity;
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.ChampionEntity;
+import com.lolteam.entities.general.SummonerEntity;
 import com.lolteam.entities.match.MatchEntity;
 import com.lolteam.entities.treatment.GamesToImportEntity;
-import com.lolteam.entities.treatment.ImportStatus;
 import com.lolteam.framework.core.db.DataNotFullException;
 import com.lolteam.framework.core.db.EntityCache;
 import com.lolteam.functionalities.gamesToImport.matchBuilder.MatchEntityBuilderFactory;
@@ -14,6 +13,7 @@ import com.lolteam.services.ChampionService;
 import com.lolteam.services.MatchEntityService;
 import com.lolteam.services.SummonerService;
 import com.lolteam.services.riotApi.RiotApiService;
+import com.lolteam.utils.enums.ImportStatus;
 import com.lolteam.utils.exceptions.RiotApiHandleException;
 
 import net.rithms.riot.api.endpoints.match.dto.Match;

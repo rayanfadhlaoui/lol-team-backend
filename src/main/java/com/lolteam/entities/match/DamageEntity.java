@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.lolteam.entities.GenericEntity;
+import com.lolteam.entities.general.GenericEntity;
 
 @Entity(name = "DamageEntity")
 @Table(name = "damage")

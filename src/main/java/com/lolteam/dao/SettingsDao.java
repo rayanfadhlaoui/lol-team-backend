@@ -2,7 +2,7 @@ package com.lolteam.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.lolteam.entities.SettingEntity;
+import com.lolteam.entities.general.SettingEntity;
 
 @Repository
 public class SettingsDao extends GenericDao<SettingEntity> {

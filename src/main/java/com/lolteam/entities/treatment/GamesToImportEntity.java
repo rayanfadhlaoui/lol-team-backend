@@ -14,9 +14,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.lolteam.entities.GenericEntity;
-import com.lolteam.entities.LolTeamUserEntity;
+import com.lolteam.entities.general.GenericEntity;
+import com.lolteam.entities.general.LolTeamUserEntity;
+import com.lolteam.utils.enums.ImportStatus;
 
+/** 
+ * Represent games that needs to be imported based on their status.
+ * */
 @Entity(name = "GamesToImportEntity")
 @Table(name = "games_to_import")
 @NamedQueries({
@@ -29,6 +33,7 @@ public class GamesToImportEntity implements GenericEntity {
 	@Column(name = "id")
 	private Long id;
 
+	//TODO maybe useless. see if needs to be deleted. 
 	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "user_id")
 	private LolTeamUserEntity lolTeamUserEntity;

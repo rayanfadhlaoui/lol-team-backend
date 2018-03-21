@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.SummonerEntity;
 import com.lolteam.entities.match.MatchEntity;
 import com.lolteam.utils.NumberConvertor;
 

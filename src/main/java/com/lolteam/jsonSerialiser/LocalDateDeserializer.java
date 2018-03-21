@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
     /**
-	 * 
+	 * Transform json into LocalDate.
 	 */
 	private static final long serialVersionUID = 325190445641680507L;
 
@@ -18,8 +18,12 @@ public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
         super(LocalDate.class);
     }
 
+	/**
+	 * {@inheritDoc} 
+	 * */
     @Override
     public LocalDate deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+    	// Transform a json date into a LocalDate
         return LocalDate.parse(parser.readValueAs(String.class));
     }
 }

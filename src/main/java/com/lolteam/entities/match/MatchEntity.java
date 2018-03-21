@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-import com.lolteam.entities.GenericEntity;
+import com.lolteam.entities.general.GenericEntity;
 import com.lolteam.entities.match.GameMode;
 
 @Entity(name = "MatchEntity")

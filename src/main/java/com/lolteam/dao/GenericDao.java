@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import com.lolteam.entities.GenericEntity;
+import com.lolteam.entities.general.GenericEntity;
 
 public abstract class GenericDao<T extends GenericEntity> {
 

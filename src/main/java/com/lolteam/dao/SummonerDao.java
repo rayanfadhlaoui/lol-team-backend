@@ -7,7 +7,7 @@ import javax.persistence.NonUniqueResultException;
 
 import org.springframework.stereotype.Repository;
 
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.SummonerEntity;
 
 @Repository
 public class SummonerDao extends GenericDao<SummonerEntity>{

@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lolteam.entities.LolTeamUserEntity;
-import com.lolteam.entities.SummonerEntity;
-import com.lolteam.entities.TeamEntity;
+import com.lolteam.entities.general.LolTeamUserEntity;
+import com.lolteam.entities.general.SummonerEntity;
+import com.lolteam.entities.general.TeamEntity;
 import com.lolteam.entities.treatment.GamesToImportEntity;
-import com.lolteam.entities.treatment.ImportStatus;
 import com.lolteam.functionalities.myteam.data.SummonerWithUserIdData;
 import com.lolteam.functionalities.myteam.data.TeamWithSummonerNameData;
 import com.lolteam.services.GamesToImportService;
@@ -27,6 +26,7 @@ import com.lolteam.services.MatchEntityService;
 import com.lolteam.services.SummonerService;
 import com.lolteam.services.TeamService;
 import com.lolteam.services.riotApi.RiotApiService;
+import com.lolteam.utils.enums.ImportStatus;
 
 import net.rithms.riot.api.endpoints.match.dto.MatchList;
 import net.rithms.riot.api.endpoints.match.dto.MatchReference;

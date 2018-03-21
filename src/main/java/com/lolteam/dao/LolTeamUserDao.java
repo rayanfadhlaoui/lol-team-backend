@@ -7,7 +7,7 @@ import javax.persistence.NonUniqueResultException;
 
 import org.springframework.stereotype.Repository;
 
-import com.lolteam.entities.LolTeamUserEntity;
+import com.lolteam.entities.general.LolTeamUserEntity;
 
 @Repository
 public class LolTeamUserDao extends GenericDao<LolTeamUserEntity> {

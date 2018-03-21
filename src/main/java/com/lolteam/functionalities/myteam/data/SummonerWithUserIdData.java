@@ -1,6 +1,6 @@
 package com.lolteam.functionalities.myteam.data;
 
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.SummonerEntity;
 
 public class SummonerWithUserIdData {
 

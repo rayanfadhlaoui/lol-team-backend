@@ -1,6 +1,6 @@
 package com.lolteam.functionalities.myteam.data;
 
-import com.lolteam.entities.TeamEntity;
+import com.lolteam.entities.general.TeamEntity;
 
 public class TeamWithSummonerNameData {
 	private TeamEntity team;

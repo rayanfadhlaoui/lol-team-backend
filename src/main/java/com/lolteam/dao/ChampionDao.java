@@ -7,7 +7,7 @@ import javax.persistence.NonUniqueResultException;
 
 import org.springframework.stereotype.Repository;
 
-import com.lolteam.entities.ChampionEntity;
+import com.lolteam.entities.general.ChampionEntity;
 
 @Repository
 public class ChampionDao extends GenericDao<ChampionEntity>{

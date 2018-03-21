@@ -2,8 +2,8 @@ package com.lolteam.functionalities.gamesToImport.matchBuilder;
 
 import java.util.Map;
 
-import com.lolteam.entities.ChampionEntity;
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.ChampionEntity;
+import com.lolteam.entities.general.SummonerEntity;
 import com.lolteam.entities.match.DamageEntity;
 import com.lolteam.entities.match.ExperienceEntity;
 import com.lolteam.entities.match.FarmEntity;

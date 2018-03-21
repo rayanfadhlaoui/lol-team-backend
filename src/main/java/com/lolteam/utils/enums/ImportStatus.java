@@ -1,4 +1,4 @@
-package com.lolteam.entities.treatment;
+package com.lolteam.utils.enums;
 
 public enum ImportStatus {
 	WAITING("Waiting"),

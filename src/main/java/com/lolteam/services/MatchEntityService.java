@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lolteam.dao.MatchEntityDao;
-import com.lolteam.entities.SummonerEntity;
+import com.lolteam.entities.general.SummonerEntity;
 import com.lolteam.entities.match.MatchEntity;
 
 @Service("MatchEntityBean")

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lolteam.dao.TeamDao;
-import com.lolteam.entities.TeamEntity;
+import com.lolteam.entities.general.TeamEntity;
 
 @Service
 public class TeamService {

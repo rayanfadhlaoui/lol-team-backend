@@ -1,4 +1,4 @@
-package com.lolteam.entities;
+package com.lolteam.entities.general;
 
 import java.time.LocalDate;
 
