@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.lolteam.utils.exceptions.ConvertionException;
 
+
 class NumberConvertorTest {
 
 	@Test

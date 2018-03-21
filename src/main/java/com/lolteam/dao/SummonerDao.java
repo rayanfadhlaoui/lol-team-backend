@@ -18,11 +18,11 @@ public class SummonerDao extends GenericDao<SummonerEntity>{
 	}
 	
 	/** 
-	 * Returns a optional {@link SummonerEntity} associated to the given account id.
+	 * Returns a optional {@link SummonerEntity} associated to the given account id.<br/>
 	 * The optional will be empty if more than one summoners or no summoner at all are associated to the parameters 
 	 * 
 	 * @param accountId 
-	 * 		The accountId
+	 * 		The account Id
 	 * 
 	 * @return An optional on a summoner
 	 */
@@ -39,11 +39,11 @@ public class SummonerDao extends GenericDao<SummonerEntity>{
 	}
 
 	/** 
-	 * Returns a optional {@link SummonerEntity} associated to the given summoner name.
+	 * Returns a optional {@link SummonerEntity} associated to the given summoner name.<br/>
 	 * The optional will be empty if more than one summoners or no summoner at all are associated to the parameters 
 	 * 
 	 * @param summonerName 
-	 * 		The summoner's name
+	 * 		The summoner name
 	 * 
 	 * @return An optional on a summoner
 	 */
