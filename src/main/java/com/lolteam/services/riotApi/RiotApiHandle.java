@@ -12,6 +12,8 @@ class RiotApiHandle {
 	/**
 	 * Handles native riot api.
 	 * 
+	 * @param supplier 
+	 * 		The supplier
 	 * @return the result if everything goes well,
 	 * if a RateLimiteException is thrown, the method will try again went possible.
 	 * Otherwise returns null*/
@@ -23,6 +25,15 @@ class RiotApiHandle {
 		}
 	}
 	
+	/**
+	 * Handles {@link RiotApiException}.<br/>
+	 * If {@link RateLimitException} is thrown, wait the right amount of time, then retries the operation.<br/>
+	 * If DATA_NOT_FOUND or SERVER_ERROR error occurs, a empty optional will be returned.<br/>
+	 * @return An optional of the expected result.
+	 * 
+	 * @throws RiotApiHandle If the expection thrown by the riot api wasn't properly handled.
+	 * 
+	 */
 	private <R> Optional<R> handleRiotApiException(RiotApiException e, RiotSupplier<R> supplier) {
 		if(e instanceof RateLimitException) {
 			RateLimitException rateExeption = (RateLimitException) e;
